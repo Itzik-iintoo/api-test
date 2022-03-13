@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const {getAllUsers, getAllOpnUsers} = require('./controllers/test.controller.js')
+const {getAllUsers, getAllOpnUsers,loginUser} = require('./controllers/test.controller.js')
 
 const app = express();
 
 // app.use(cors)
 // app.use(express.json())
-
+app.get('/api/login',loginUser)
 app.get("/api/users",getAllUsers)
 app.get("/api/opnusers",getAllOpnUsers)
 
