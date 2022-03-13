@@ -26,13 +26,13 @@ const getAllOpnUsers = (req, res) => opn_users.query(
     }
 )
 
+
 const loginUser = (req, res) => portal.query(
-  `SELECT name FROM 'user' WHERE email = ${req.body.email}`,
+  `SELECT name FROM user WHERE email = '${req.body.email}'`,
   function async (err, results) {
     if(err) res.send({error: err});
+    if(results.length<=0) res.send({error:'Something went wrong'})
     res.send(results)
   }
-  
-
 )
 module.exports = {getAllUsers,getAllOpnUsers , loginUser};

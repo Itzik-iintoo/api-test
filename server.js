@@ -5,8 +5,8 @@ const {getAllUsers, getAllOpnUsers,loginUser} = require('./controllers/test.cont
 const app = express();
 
 // app.use(cors)
-// app.use(express.json())
-app.get('/api/login',loginUser)
+app.use(express.json())
+app.post('/api/login',loginUser)
 app.get("/api/users",getAllUsers)
 app.get("/api/opnusers",getAllOpnUsers)
 
