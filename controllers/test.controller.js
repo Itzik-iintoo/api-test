@@ -20,9 +20,15 @@ const loginUser = (req, res) =>
     `SELECT first,last FROM user WHERE email = '${req.body.email}' AND password = '${req.body.password}'`,
     function async(err, results) {
       console.log(req.body.email, req.body.password);
-      if (err) res.send({ error: err });
-      if (results.length <= 0) res.send({ error: "Something went wrong" });
+      if (err) {
+        return res.status(500).send({ message: err });
+      }
+      if (!results || results.length <= 0) {
+        return res.status(404).send({ message: "Email or password not found" });
+      }
+      // if (results.length <= 0) res.send({ error: "Something went wrong" });
       res.send(results);
     }
   );
+
 module.exports = { loginUser, connectTest };
