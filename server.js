@@ -1,20 +1,20 @@
-const express = require('express');
-const cors = require('cors');
-const {getAllUsers, getAllOpnUsers,loginUser} = require('./controllers/test.controller.js')
+const express = require("express");
+const cors = require("cors");
+const { encryptPassword } = require("./middleware/login.middeware");
+const { loginUser, connectTest } = require("./controllers/test.controller.js");
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+// app.use(encryptPassword);
+app.post("/api/login", encryptPassword, loginUser);
 
-// app.use(cors)
-app.use(express.json())
-app.post('/api/login',loginUser)
-app.get("/api/users",getAllUsers)
-app.get("/api/opnusers",getAllOpnUsers)
-
+app.get("/api/test", connectTest);
 const PORT = process.env.PORT || 3001;
-app.get('/',(req, res) => {
-   return res.send(`welcome to api-test`)
-})
+app.get("/", (req, res) => {
+  return res.send(`welcome to api-test`);
+});
 
-app.listen(PORT,()=>{
-    console.log('listening on port '+PORT);
-})
+app.listen(PORT, () => {
+  console.log("listening on port " + PORT);
+});
